@@ -104,7 +104,6 @@ class Client(object):
         options = Options()
         options.transport = HttpAuthenticated()
         self.options = options
-        self.options.location = url
         options.cache = ObjectCache(days=1)
         self.set_options(**kwargs)
         reader = DefinitionsReader(options, Definitions)
@@ -647,7 +646,7 @@ class SoapClient:
                 soapenv = soapenv.plain()
             soapenv = soapenv.encode('utf-8')
             plugins.message.sending(envelope=soapenv)
-            request = Request(location, soapenv)
+            request = Request(str(location, 'utf-8'), soapenv)
             request.headers = self.headers()
             reply = transport.send(request)
             ctx = plugins.message.received(reply=reply.message)
@@ -801,3 +800,4 @@ class SimClient(SoapClient):
             return (500, p)
         else:
             return (500, None)
+
