@@ -87,7 +87,7 @@ class Reply:
         s.append('HEADERS: %s' % self.headers)
         s.append('MESSAGE:')
         s.append(str(self.message))
-        return '\n'.join(s)
+        return '\n'.join(s, 'utf-8')
 
 
 class Transport:
